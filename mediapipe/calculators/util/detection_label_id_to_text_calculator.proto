@@ -40,4 +40,5 @@ message DetectionLabelIdToTextCalculatorOptions {
 
   // Identifying information for each classification label.
   map<int64, LabelMapItem> label_items = 4;
+  optional string output_file_path = 5;
 }

@@ -1,0 +1,23 @@
+syntax = "proto2";
+
+package mediapipe;
+
+import "mediapipe/framework/calculator_options.proto";
+
+message DetectionMQTTPublisherCalculatorOptions {
+  extend mediapipe.CalculatorOptions {
+    optional DetectionMQTTPublisherCalculatorOptions ext = 251889079;
+  }
+
+  // MQTT broker address in the format mqtt://hostname:port
+  optional string broker_address = 1;
+
+  // MQTT broker username
+  optional string username = 2;
+
+  // MQTT broker password
+  optional string password = 3;
+
+  // MQTT topic to publish detections
+  optional string topic = 4;
+}

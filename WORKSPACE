@@ -396,6 +396,12 @@ new_local_repository(
 )
 
 new_local_repository(
+    name = "mosquitto_client",
+    build_file = "@//third_party:mosquitto_client.BUILD",
+    path = "/usr",
+)
+
+new_local_repository(
     name = "windows_opencv",
     build_file = "@//third_party:opencv_windows.BUILD",
     path = "C:\\opencv\\build",

@@ -61,6 +61,48 @@ cc_library(
     alwayslink = 1,
 )
 
+cc_library(
+    name = "detection_mqtt_publisher_calculator",
+    srcs = ["detection_mqtt_publisher_calculator.cc"],
+    hdrs = ["detection_mqtt_publisher_calculator.h"],
+    deps = [
+        ":detection_mqtt_publisher_calculator_cc_proto",
+        "//mediapipe/framework:calculator_framework",
+        "//mediapipe/framework:packet",
+        "//mediapipe/framework/formats:detection_cc_proto",
+        "//mediapipe/framework/port:status",
+        "//mediapipe/util:resource_util",
+        "//mediapipe/framework/port:core_proto",
+        "//mediapipe/framework/port:integral_types",
+        "@mosquitto_client//:mosquitto_client",  
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/container:node_hash_map",
+    ] + select({
+        "//mediapipe:android": [
+            "//mediapipe/util/android/file/base",
+        ],
+        "//mediapipe:ios": [
+            "//mediapipe/util/android/file/base",
+        ],
+        "//mediapipe:macos": [
+            "//mediapipe/framework/port:file_helpers",
+        ],
+        "//conditions:default": [
+            "//mediapipe/framework/port:file_helpers",
+        ],
+    }),
+    alwayslink = 1,
+)
+
+mediapipe_proto_library(
+    name = "detection_mqtt_publisher_calculator_proto",
+    srcs = ["detection_mqtt_publisher_calculator.proto"],
+    deps = [
+        "//mediapipe/framework:calculator_options_proto",
+        "//mediapipe/framework:calculator_proto",
+    ],
+)
+
 mediapipe_proto_library(
     name = "annotation_overlay_calculator_proto",
     srcs = ["annotation_overlay_calculator.proto"],
@@ -79,6 +121,15 @@ mediapipe_proto_library(
         "//mediapipe/framework:calculator_proto",
         "//mediapipe/util:label_map_proto",
     ],
+)
+
+mediapipe_proto_library(
+    name = "detection_id_to_file_calculator_proto",
+    srcs = ["detection_id_to_file_calculator.proto"],
+    deps = [
+        "//mediapipe/framework:calculator_options_proto",
+        "//mediapipe/framework:calculator_proto",
+    ]
 )
 
 mediapipe_proto_library(

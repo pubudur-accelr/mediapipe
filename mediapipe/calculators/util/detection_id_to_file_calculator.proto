@@ -1,0 +1,15 @@
+// detection_id_to_file_calculator.proto
+syntax = "proto2";
+
+package mediapipe;
+
+import "mediapipe/framework/calculator.proto";
+
+message DetectionIdToFileCalculatorOptions {
+  extend mediapipe.CalculatorOptions {
+    optional DetectionIdToFileCalculatorOptions ext = 251889075; // Unique identifier
+  }
+
+  optional string output_file_path = 1;
+  optional bool append_mode = 2 [default = false];
+}

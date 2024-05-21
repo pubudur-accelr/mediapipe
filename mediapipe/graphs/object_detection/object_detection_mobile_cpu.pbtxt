@@ -163,6 +163,31 @@ node {
   }
 }
 
+node {
+  calculator: "DetectionIdToFileCalculator"
+  input_stream: "output_detections"
+  node_options: {
+    [type.googleapis.com/mediapipe.DetectionIdToFileCalculatorOptions] {
+      output_file_path: "./output.txt"
+      append_mode: true
+    }
+  }
+}
+
+# Define the MQTTCalculator node
+node {
+  calculator: "DetectionMQTTPublisherCalculator"
+  input_stream: "output_detections"
+  node_options: {
+    [type.googleapis.com/mediapipe.DetectionMQTTPublisherCalculatorOptions] {
+      broker_address: "192.168.1.24" 
+      username: "accelr"  
+      password: "accelr123" 
+      topic: "test/topic" 
+    }
+  }
+}
+
 # Converts the detections to drawing primitives for annotation overlay.
 node {
   calculator: "DetectionsToRenderDataCalculator"
